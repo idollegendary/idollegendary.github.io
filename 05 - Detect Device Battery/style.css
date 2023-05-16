@@ -1,16 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
 
 *{
-    font-family: 'Unbutu';
+    font-family: 'Ubuntu';
     margin: 0;
     padding: 0;
 }
 
 :root{
     --gradient-color-red: linear-gradient(90deg, hsl(7, 89%, 46%) 15%, hsl(11, 93%, 68%) 100%);
-    --gradient-color-orange: linear-gradient(90deg, hsl(22, 89%, 46%) 15%, hsl(54, 90%, 68%) 100%);
-    --gradient-color-yellow: linear-gradient(90deg, hsl(54, 89%, 46%) 15%, hsl(92, 90%, 45%) 100%);
-    --gradient-color-green: linear-gradient(90deg, hsl(92, 89%, 46%) 15%, hsl(92, 90%, 68%) 100%);
+    --gradient-color-orange: linear-gradient(90deg, hsl(22,89%,46%) 15%,hsl(54,90%,68%)100%);
+    --gradient-color-yellow: linear-gradient(90deg,hsl(54,89%,46%) 15%,hsl(92,90%,45%)100%);
+    --gradient-color-green: linear-gradient(90deg,hsl(92,89%,46%) 15%,hsl(92,90%,68%)100%);
 }
 
 body{
@@ -37,7 +37,7 @@ body{
     align-items: center;
 }
 
-.Btext{
+Btext{
     margin-bottom: 0.5rem;
 }
 
@@ -63,7 +63,7 @@ body{
     width: 75px;
     height: 180px;
     background-color: #222;
-    box-shadow: inset 20px 0 48px hsl(0, 0%, 16%), inset -4px 12px 45px hsl(0, 0%, 56%);
+    box-shadow: inset 20px 0 48px hsl(0, 0%, 16%), inset -4px 12px 48px hsl(0, 0%, 56%);
     border-radius: 3rem;
     justify-self: flex-start;
 }
@@ -135,18 +135,18 @@ body{
     }
 }
 
-.gradient-color-red, green-color-red::after{
+.gradient-color-red, .green-color-red::after{
     background: var(--gradient-color-red);
 }
 
-.gradient-color-green, green-color-green::after{
+.gradient-color-green, .green-color-green::after{
     background: var(--gradient-color-green);
 }
 
-.gradient-color-orange, green-color-orange::after{
+.gradient-color-orange, .green-color-orange::after{
     background: var(--gradient-color-orange);
 }
 
-.gradient-color-yellow, green-color-yellow::after{
+.gradient-color-yellow, .green-color-yellow::after{
     background: var(--gradient-color-yellow);
 }
