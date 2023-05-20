@@ -1,0 +1,127 @@
+@import url("https://fonts.googleapis.com/css2?family=Shantell+Sans");
+
+:root {
+  --animBlur-variable: 0px;
+  --animGray-variable: 0;
+  --animColor-variable: 0deg;
+  --animGradient-variable: 100%;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-shadow: 1px 1px 1px black;
+}
+html,
+body {
+  overscroll-behavior-x: none;
+  overscroll-behavior-y: none;
+}
+body {
+  color: #fff;
+  background: black;
+  position: relative;
+  font-family: "Shantell Sans", serif;
+  font-size: max(18px, 2.3vw);
+}
+section {
+  display: block;
+  min-height: 100vh;
+  padding: 3vw 8vw;
+  z-index: 1;
+}
+footer {
+  border-top: 4px dotted white;
+  margin: 2vw 10vw;
+  padding-top: 2vw;
+  text-align: center;
+}
+h1 {
+  font-size: 8vw;
+  font-weight: 600;
+  margin: 3vw 0;
+  text-align: center;
+}
+h2 {
+  color: hsl(var(--animColor-variable), 100%, 70%);
+}
+a {
+  color: #fff;
+}
+.separate {
+  display: block;
+  text-align: center;
+  margin: 0;
+  color: white;
+}
+.symbol {
+  font-family: serif;
+  position: relative;
+  font-size: 35px;
+  width: 35px;
+  height: 35px;
+  display: inline-block;
+  line-height: 1;
+}
+p {
+  margin: 2rem 0;
+  line-height: 1.5;
+  min-height: 100vh;
+  z-index: 1;
+}
+section:not(#thanks) p:first-letter {
+  font-size: 2.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: hsl(var(--animColor-variable), 100%, 70%);
+  /*
+  color: slategray;
+  margin: 0 1rem 0.3rem 0;
+  font-family: "Fleur De Leah", serif;
+  -webkit-initial-letter: 3;
+  initial-letter: 3;
+*/
+}
+#thanks {
+  text-align: center;
+}
+.bg {
+  z-index: -1;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top 10% center;
+}
+.img1 {
+  background-image: url(https://images.unsplash.com/photo-1518895949257-7621c3c786d7?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2ODQzMjcxMDh8&ixlib=rb-4.0.3&q=85);
+  filter: blur(var(--animBlur-variable)) grayscale(var(--animGray-variable));
+}
+
+.img2 {
+  background-image: url(https://happy358.github.io/Images/flower/rose.png);
+  filter: hue-rotate(var(--animColor-variable));
+}
+.img2:before {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  content: "";
+  background: radial-gradient(
+    circle,
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0) var(--animGradient-variable),
+    rgba(0, 0, 0, 0.5) 100%
+  );
+  z-index: 0;
+}
