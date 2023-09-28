@@ -54,35 +54,16 @@
         <input type="submit" value="Відобразити ембед-код" />
     </form>
 
-    <?php
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        // Отримати введене посилання з форми
-        $youtube_url = $_POST['youtube_url'];
-
-        // Визначте функцію для отримання ембед-коду з посилання на відео YouTube
-        function getYouTubeEmbedCode($url) {
-            preg_match('/[\\?\\&]v=([^\\?\\&]+)/', $url, $matches);
-            $video_id = $matches[1];
-            return "https://www.youtube.com/embed/{$video_id}";
-        }
-
-        // Вивести ембед-код, як айфрейм, якщо відео було введено
-        if (!empty($youtube_url)) {
-            $embed_code = getYouTubeEmbedCode($youtube_url);
-            echo "<h2>Айфрейм відео:</h2>";
-            echo "<iframe width=\"560\" height=\"315\" src=\"$embed_code\" frameborder=\"0\" allowfullscreen></iframe>";
+    <h2>Айфрейм відео:</h2>
+    <iframe width="560" height="315" src="" frameborder="0" allowfullscreen></iframe>
             
-            echo "<h2>Посилання на відео:</h2>";
-            echo "<a href=\"$youtube_url\" target=\"_blank\">$youtube_url</a>";
+    <h2>Посилання на відео:</h2>
+    <a href="" target="_blank"></a>
 
-            echo "<h2>Ембед-код відео:</h2>";
-            // Додати блок div з ембед-кодом, на який можна клікнути для копіювання
-            echo "<div class=\"embed-code\" id=\"embedCode\" onclick=\"copyEmbedCodeOnClick()\">$embed_code</div>";
-            // Додати кнопку для копіювання
-            echo "<button onclick=\"copyEmbedCode()\">Скопіювати ембед-код</button>";
-        }
-    }
-    ?>
-
+    <h2>Ембед-код відео:</h2>
+    <!-- Додати блок div з ембед-кодом, на який можна клікнути для копіювання -->
+    <div class="embed-code" id="embedCode" onclick="copyEmbedCodeOnClick()"></div>
+    <!-- Додати кнопку для копіювання -->
+    <button onclick="copyEmbedCode()">Скопіювати ембед-код</button>
 </body>
 </html>
