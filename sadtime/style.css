@@ -1,0 +1,30 @@
+h1 {
+    font-family: "Segoe Script", cursive;
+    color: #ff69b4; /* Рожевий колір */
+    text-shadow: 2px 2px 4px #000000; /* Тінь */
+    letter-spacing: 2px; /* Розмір між буквами */
+    text-align: center; /* Вирівнювання по центру */
+    font-size: 3em; /* Розмір шрифту за замовчуванням */
+    margin-bottom: 20px; /* Відступ знизу */
+    animation: colorChange 5s infinite alternate; /* Анімація для зміни кольору */
+}
+
+@keyframes colorChange {
+    0% {
+        color: #ff69b4; /* Початковий колір - рожевий */
+    }
+    50% {
+        color: #ffffff; /* Кінцевий колір - білий */
+    }
+    100% {
+        color: #ff69b4; /* Повернення до початкового коліру */
+    }
+}
+
+/* Медіа-запит для мобільних пристроїв */
+@media only screen and (max-width: 600px) {
+    h1 {
+        font-size: 2em; /* Зменшуємо розмір шрифту для маленьких екранів */
+        margin-bottom: 10px; /* Зменшуємо відступ знизу для маленьких екранів */
+    }
+}
