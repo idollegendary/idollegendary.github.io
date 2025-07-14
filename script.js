@@ -1,35 +1,48 @@
-const phrases = [
-  " Ласкаво просимо до IDOLLEGENDARY Studio!",
-  " Легендарні ідеї, культовий підхід",
-  " Твій сучасний старт у світі технологій",
-  " Знаходимо творчість у кожному байті",
-  " Ваша ідея — наша реалізація"
+const words = [
+  "Ласкаво просимо до IDOLLEGENDARY Studio!",
+  "Легендарні ідеї, культовий підхід",
+  "Твій сучасний старт у світі технологій",
+  "Знаходимо творчість у кожному байті",
+  "Ваша ідея — наша реалізація"
 ];
-let currentPhrase = 0;
-let currentChar = 0;
-const typewriterEl = document.getElementById('typewriter');
 
-function type() {
-  let phrase = phrases[currentPhrase];
-  typewriterEl.textContent = phrase.slice(0, currentChar + 1) + " |";
-  currentChar++;
-  if (currentChar < phrase.length) {
-    setTimeout(type, 80);
-  } else {
-    setTimeout(erase, 1500);
-  }
+let part = '';
+let i = 0;
+let offset = 0;
+let forwards = true;
+let skip_count = 0;
+let skip_delay = 20;
+let speed = 100;
+
+const el = document.getElementById('typewriter');
+
+function typewriter() {
+    setInterval(function() {
+        if (forwards) {
+            if (offset >= words[i].length) {
+                skip_count++;
+                if (skip_count === skip_delay) {
+                    forwards = false;
+                    skip_count = 0;
+                }
+            }
+        } else {
+            if (offset === 0) {
+                forwards = true;
+                i++;
+                if (i >= words.length) {
+                    i = 0;
+                }
+            }
+        }
+        part = words[i].substr(0, offset);
+        el.textContent = part;
+        if (forwards) {
+            offset++;
+        } else {
+            offset--;
+        }
+    }, speed);
 }
 
-function erase() {
-  let phrase = phrases[currentPhrase];
-  typewriterEl.textContent = phrase.slice(0, currentChar - 1) + " |";
-  currentChar--;
-  if (currentChar > 0) {
-    setTimeout(erase, 30);
-  } else {
-    currentPhrase = (currentPhrase + 1) % phrases.length;
-    setTimeout(type, 500);
-  }
-}
-
-type();
+typewriter();
