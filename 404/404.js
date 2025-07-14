@@ -9,13 +9,36 @@ const phrases = [
   "«Усі найкращі місця — трохи абсурдні. 404 — ідеальний приклад!»",
   "«Щоб знайти сторінку, треба спершу її втратити…»"
 ];
-let idx = 0;
 
-function showPhrase() {
-  const phrase = document.getElementById('phrase');
-  phrase.textContent = phrases[idx];
-  idx = (idx + 1) % phrases.length;
+let idx = 0;
+let charIdx = 0;
+let isDeleting = false;
+let currentPhrase = '';
+const phraseElement = document.getElementById('phrase');
+
+function typeWriterEffect() {
+  currentPhrase = phrases[idx];
+  
+  if (isDeleting) {
+    charIdx--;
+    phraseElement.textContent = currentPhrase.slice(0, charIdx) + '|';
+  } else {
+    phraseElement.textContent = currentPhrase.slice(0, charIdx + 1) + '|';
+    charIdx++;
+  }
+
+  let typingSpeed = isDeleting ? 30 : 50;
+
+  if (!isDeleting && charIdx === currentPhrase.length) {
+    typingSpeed = 2000; // затримка після друку перед видаленням
+    isDeleting = true;
+  } else if (isDeleting && charIdx === 0) {
+    isDeleting = false;
+    idx = (idx + 1) % phrases.length;
+    typingSpeed = 500; // пауза перед наступним друком
+  }
+
+  setTimeout(typeWriterEffect, typingSpeed);
 }
 
-showPhrase();
-setInterval(showPhrase, 7000);
+typeWriterEffect();
