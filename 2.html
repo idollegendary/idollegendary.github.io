@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>mr. robot // hack the world</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+    body {
+      background: #111;
+      overflow: hidden;
+      margin: 0;
+      height: 100vh;
+      width: 100vw;
+      font-family: 'Share Tech Mono', monospace;
+      position: relative;
+      color: #00ffb7;
+    }
+    /* Glitchy scanline overlay */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: 1;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.01) 0px,
+        rgba(255,255,255,0.03) 1.5px,
+        transparent 2.5px,
+        transparent 8px
+      );
+      mix-blend-mode: lighten;
+    }
+    /* Terminal background animation */
+    #terminal-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      opacity: 0.19;
+      color: #00ffb7;
+      font-size: 18px;
+      font-family: 'Share Tech Mono', monospace;
+      z-index: 0;
+      white-space: pre;
+      pointer-events: none;
+      user-select: none;
+      filter: blur(0.5px) brightness(0.7);
+      line-height: 1.2;
+      text-shadow: 0 0 2px #00fff7, 0 0 8px #00fff7;
+    }
+    /* Centered glitch mr. robot text */
+    .glitch {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fff;
+      font-size: 72px;
+      letter-spacing: 2px;
+      font-family: 'Share Tech Mono', monospace;
+      z-index: 2;
+      text-transform: lowercase;
+      text-align: center;
+    }
+    .glitch::before, .glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      left: 0; width: 100%;
+      overflow: hidden;
+    }
+    .glitch::before {
+      top: -2px;
+      color: #f8004c;
+      z-index: -1;
+      text-shadow: 2px 0 #ff00c1;
+      animation: glitchTop 1.1s infinite linear alternate-reverse;
+    }
+    .glitch::after {
+      top: 2px;
+      color: #00fff7;
+      z-index: -1;
+      text-shadow: -2px 0 #00fff9;
+      animation: glitchBottom 0.9s infinite linear alternate-reverse;
+    }
+    @keyframes glitchTop {
+      0% { left: 0px; }
+      20% { left: 3px; }
+      40% { left: -2px; }
+      60% { left: 1px; }
+      80% { left: -3px; }
+      100% { left: 0px; }
+    }
+    @keyframes glitchBottom {
+      0% { left: 0px; }
+      20% { left: -3px; }
+      40% { left: 2px; }
+      60% { left: -1px; }
+      80% { left: 3px; }
+      100% { left: 0px; }
+    }
+    /* Flicker animation */
+    .glitch {
+      animation: flicker 3s infinite alternate;
+    }
+    @keyframes flicker {
+      0%, 100% { opacity: 1; }
+      10% { opacity: 0.85; }
+      20% { opacity: 0.65; }
+      30% { opacity: 1; }
+      40% { opacity: 0.95; }
+      50% { opacity: 1; }
+      60% { opacity: 0.7; }
+      70% { opacity: 1; }
+      80% { opacity: 0.8; }
+      90% { opacity: 1; }
+    }
+    /* Subtle green glow under mr. robot */
+    .glow {
+      position: absolute;
+      left: 50%; top: 50%;
+      transform: translate(-50%, -30%);
+      width: 350px;
+      height: 30px;
+      background: radial-gradient(ellipse at center, #00ffbb77 0%, #111 100%);
+      filter: blur(15px);
+      z-index: 1;
+      opacity: 0.3;
+      pointer-events: none;
+    }
+    /* Small call-to-action */
+    .subtitle {
+      position: absolute;
+      left: 50%; top: 65%;
+      transform: translate(-50%, 0);
+      color: #00ffb7;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 18px;
+      opacity: 0.53;
+      letter-spacing: 1.1px;
+      z-index: 3;
+      text-shadow: 0 0 8px #00fff7;
+      user-select: none;
+    }
+    /* Notifications container */
+    #notifications {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-width: 320px;
+    }
+    /* Single notification */
+    .notification {
+      background: #111;
+      border: 1.5px solid #00ffb7;
+      padding: 12px 18px;
+      border-radius: 6px;
+      color: #00ffb7;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 14px;
+      box-shadow: 0 0 8px #00fff7;
+      position: relative;
+      user-select: none;
+      cursor: default;
+    }
+    /* Close button */
+    .notification .close-btn {
+      position: absolute;
+      top: 6px;
+      right: 8px;
+      background: transparent;
+      border: none;
+      color: #00ffb7;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      user-select: none;
+      line-height: 1;
+    }
+    .notification .close-btn:hover {
+      color: #ff0055;
+    }
+    /* Fixed blinking red IP command */
+    #ip-highlight {
+      position: fixed;
+      bottom: 10px;
+      left: 10px;
+      color: #ff0000;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 16px;
+      font-weight: bold;
+      user-select: none;
+      animation: blink-red 1.5s infinite;
+      z-index: 10000;
+      background: rgba(0,0,0,0.75);
+      padding: 6px 12px;
+      border-radius: 6px;
+      box-shadow: 0 0 10px #ff0000;
+      pointer-events: none;
+    }
+    @keyframes blink-red {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.2; }
+    }
+  </style>
+</head>
+<body>
+  <div id="terminal-bg"></div>
+  <div class="glow"></div>
+  <div class="glitch" data-text="mr. robot">mr. robot</div>
+  <div class="subtitle">init 1 // fsociety@localhost</div>
+
+  <div id="notifications"></div>
+
+  <script>
+    // Команди для фону
+    const commands = [
+      {cmd: "whoami", out: "fsociety"},
+      {cmd: "uname -a", out: "Linux localhost 5.15.0-robot #1 SMP x86_64 GNU/Linux"},
+      {cmd: "nmap -p- 192.168.0.1", out: "PORT      STATE SERVICE\n22/tcp    open  ssh\n80/tcp    open  http\n443/tcp   open  https"},
+      {cmd: "cat /etc/passwd | grep root", out: "root:x:0:0:root:/root:/bin/bash"},
+      {cmd: "ssh root@192.168.0.1", out: "root@192.168.0.1's password: ********"},
+      {cmd: "ls /home", out: "eliot  daemons  robot"},
+      {cmd: "echo '# revolution' > /tmp/fsociety.txt", out: ""},
+      {cmd: "cat /tmp/fsociety.txt", out: "# revolution"},
+      {cmd: "sudo rm -rf /", out: "Permission denied"},
+      {cmd: "ps aux | grep evilcorp", out: "root     101  0.3  evilcorp-service"},
+      {cmd: "curl ipinfo.io", out: "Loading IP info..."}
+    ];
+
+    let tLines = [];
+    let cmdIdx = 0;
+    let charIdx = 0;
+    let showCmd = true;
+    const bgDiv = document.getElementById('terminal-bg');
+
+    const notificationsDiv = document.getElementById('notifications');
+
+    // Функція для створення сповіщень
+    function createNotification(text) {
+      const notif = document.createElement('div');
+      notif.className = 'notification';
+      notif.textContent = text;
+
+      // Кнопка закриття
+      const closeBtn = document.createElement('button');
+      closeBtn.className = 'close-btn';
+      closeBtn.textContent = '×';
+      closeBtn.onclick = () => notif.remove();
+      notif.appendChild(closeBtn);
+
+      notificationsDiv.appendChild(notif);
+    }
+
+    // Функція для отримання IP та локації через API
+    async function getIpLocation() {
+      try {
+        const resp = await fetch('https://ipapi.co/json/');
+        if (!resp.ok) throw new Error("Network response was not ok");
+        const data = await resp.json();
+        return {
+          ip: data.ip,
+          org: data.org || data.network || 'Unknown provider',
+          city: data.city,
+          region: data.region,
+          country_name: data.country_name || data.country
+        };
+      } catch (e) {
+        return null;
+      }
+    }
+
+    // Додаємо / прибираємо підсвітку IP команди
+    function showIpHighlight(show) {
+      if (show) {
+        if (!document.getElementById('ip-highlight')) {
+          const ipHighlight = document.createElement('div');
+          ipHighlight.id = 'ip-highlight';
+          ipHighlight.textContent = 'curl ipinfo.io';
+          document.body.appendChild(ipHighlight);
+        }
+      } else {
+        const ipHighlight = document.getElementById('ip-highlight');
+        if (ipHighlight) ipHighlight.remove();
+      }
+    }
+
+    // Функція, що запускається після виконання конкретної команди
+    function onCommandExecuted(cmd) {
+      if (cmd === "curl ipinfo.io") {
+        showIpHighlight(true);
+        getIpLocation().then(data => {
+          if (data) {
+            if (data.ip) createNotification(`IP: ${data.ip}`);
+            if (data.org) createNotification(`Provider: ${data.org}`);
+            let locationText = [];
+            if (data.city) locationText.push(data.city);
+            if (data.region) locationText.push(data.region);
+            if (data.country_name) locationText.push(data.country_name);
+            if (locationText.length) createNotification(`Location: ${locationText.join(', ')}`);
+          }
+        });
+      }
+    }
+
+    // Анімація друку в бекграунді
+    function tick() {
+      if (cmdIdx >= commands.length) {
+        tLines = tLines.slice(-12);
+        cmdIdx = 0;
+      }
+      if (showCmd) {
+        let line = "$ " + commands[cmdIdx].cmd.slice(0, charIdx);
+        if (charIdx < commands[cmdIdx].cmd.length) {
+          charIdx++;
+        } else {
+          showCmd = false;
+          charIdx = 0;
+        }
+        tLines.push(line);
+      } else {
+        if (commands[cmdIdx].out) {
+          commands[cmdIdx].out.split('\n').forEach(l => tLines.push(l));
+        }
+
+        onCommandExecuted(commands[cmdIdx].cmd);
+
+        cmdIdx++;
+        showCmd = true;
+      }
+      // Оновлюємо текст бекграунду
+      bgDiv.textContent = tLines.slice(-18).join('\n');
+      setTimeout(tick, showCmd ? 50 : 600);
+    }
+    tick();
+  </script>
+</body>
+</html>
