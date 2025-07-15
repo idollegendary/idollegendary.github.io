@@ -12,37 +12,50 @@ let offset = 0;
 let forwards = true;
 let skip_count = 0;
 let skip_delay = 20;
-let speed = 100;
-
 const el = document.getElementById('typewriter');
 
+function randomChar() {
+    const glitchChars = "!@#$%^&*()_+=-{}[]:;'<>?/\\|~";
+    return glitchChars[Math.floor(Math.random() * glitchChars.length)];
+}
+
 function typewriter() {
-    setInterval(function() {
-        if (forwards) {
-            if (offset >= words[i].length) {
-                skip_count++;
-                if (skip_count === skip_delay) {
-                    forwards = false;
-                    skip_count = 0;
-                }
-            }
-        } else {
-            if (offset === 0) {
-                forwards = true;
-                i++;
-                if (i >= words.length) {
-                    i = 0;
-                }
+    if (forwards) {
+        if (offset >= words[i].length) {
+            skip_count++;
+            if (skip_count === skip_delay) {
+                forwards = false;
+                skip_count = 0;
             }
         }
-        part = words[i].substr(0, offset);
-        el.textContent = part;
-        if (forwards) {
-            offset++;
-        } else {
-            offset--;
+    } else {
+        if (offset === 0) {
+            forwards = true;
+            i++;
+            if (i >= words.length) {
+                i = 0;
+            }
         }
-    }, speed);
+    }
+    part = words[i].substr(0, offset);
+
+    // Глітчевий ефект: на мить підставляємо випадковий символ
+    let glitchy = part;
+    if (forwards && Math.random() < 0.2) {
+        glitchy += randomChar();
+    }
+
+    el.innerHTML = glitchy + '<span class="cursor">|</span>';
+
+    if (forwards) {
+        offset++;
+    } else {
+        offset--;
+    }
+
+    // Випадковий інтервал для глітчу
+    let speed = forwards ? (Math.random() * 150 + 50) : 80;
+    setTimeout(typewriter, speed);
 }
 
 typewriter();
