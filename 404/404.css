@@ -83,8 +83,6 @@ body {
   animation: blink 0.7s infinite alternate, color-shift 2s infinite alternate;
   user-select: none;
   margin-bottom: 2rem;
-  line-height: 1;
-  white-space: nowrap;
 }
 
 .glitch::before,
@@ -260,14 +258,20 @@ body {
   }
 }
 
-/* Адаптив під мобільні */
+/* Адаптив під мобілку */
 
 @media (max-width: 900px) {
+  .glitch {
+    font-size: 4rem;
+  }
   .phrase {
     font-size: 1.3rem;
   }
 }
 @media (max-width: 600px) {
+  .glitch {
+    font-size: 2.2rem;
+  }
   .phrase {
     font-size: 1rem;
     padding: 0.7rem 1rem;
@@ -279,6 +283,9 @@ body {
   }
 }
 @media (max-width: 400px) {
+  .glitch {
+    font-size: 1.2rem;
+  }
   .phrase {
     font-size: 0.7rem;
   }

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Matrix Code Rain Glitch Effect</title>
+  <style>
+    body {
+      background: #0f171e;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      margin: 0;
+    }
+    .matrix-glitch {
+      position: relative;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 2.5rem;
+      color: #00ff41;
+      letter-spacing: 2px;
+      z-index: 1;
+      text-shadow:
+        0 0 5px #00ff41,
+        0 0 10px #00ff41,
+        0 0 20px #00ff41;
+    }
+    /* Матричний дощ */
+    .matrix-rain {
+      position: absolute;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .matrix-symbol {
+      position: absolute;
+      font-size: 1.6rem;
+      color: #00ff41;
+      opacity: 0;
+      transition: opacity 0.3s;
+      text-shadow: 0 0 8px #00ff41;
+      user-select: none;
+    }
+    /* Глітч тексту */
+    .matrix-glitch::before,
+    .matrix-glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      opacity: 0.55;
+      pointer-events: none;
+    }
+    .matrix-glitch::before {
+      color: #49ff7a;
+      clip-path: polygon(0 0, 100% 0, 100% 40%, 0 40%);
+      animation: glitch1 2s infinite alternate;
+    }
+    .matrix-glitch::after {
+      color: #00b050;
+      clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
+      animation: glitch2 2.2s infinite alternate;
+    }
+
+    @keyframes glitch1 {
+      to { transform: translate(2px, -2px) skewX(-8deg);}
+    }
+    @keyframes glitch2 {
+      to { transform: translate(-2px, 2px) skewX(8deg);}
+    }
+  </style>
+</head>
+<body>
+  <div class="matrix-glitch" data-text="GLITCH: MATRIX CODE RAIN">
+    GLITCH: MATRIX CODE RAIN
+  </div>
+  <canvas class="matrix-rain"></canvas>
+  <script>
+    // Matrix Rain Effect на canvas
+    const canvas = document.querySelector('.matrix-rain');
+    const ctx = canvas.getContext('2d');
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+
+    const symbols = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズヅブプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    const fontSize = 22;
+    const columns = Math.floor(width / fontSize);
+
+    const drops = [];
+    for(let x = 0; x < columns; x++)
+      drops[x] = Math.random() * height / fontSize;
+
+    function draw() {
+      ctx.fillStyle = 'rgba(15,23,30,0.07)';
+      ctx.fillRect(0, 0, width, height);
+
+      ctx.font = fontSize + 'px monospace';
+      ctx.fillStyle = '#00ff41';
+
+      for(let i = 0; i < drops.length; i++) {
+        const text = symbols[Math.floor(Math.random() * symbols.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if(drops[i] * fontSize > height && Math.random() > 0.975)
+          drops[i] = 0;
+        drops[i]++;
+      }
+    }
+    setInterval(draw, 45);
+
+    // Адаптивність
+    window.addEventListener('resize', () => {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+    });
+  </script>
+</body>
+</html>

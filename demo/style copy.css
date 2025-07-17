@@ -135,60 +135,7 @@ main {
 .fun-fact {
   color: #ffb347;
   font-style: italic;
-  position: relative;
-  font-family: 'Montserrat', sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  display: inline-block;
-  animation: glitch-text 2s infinite;
 }
-
-.fun-fact::before,
-.fun-fact::after {
-  content: attr(data-text);
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  overflow: hidden;
-  color: #ffb347;
-  background: transparent;
-  clip: rect(0, 0, 0, 0);
-}
-
-.fun-fact::before {
-  animation: glitch-top 2s infinite;
-  color: #ff00ff;
-}
-
-.fun-fact::after {
-  animation: glitch-bottom 2s infinite;
-  color: #00ffff;
-}
-
-@keyframes glitch-text {
-  0% { transform: none; }
-  20% { transform: translate(1px, 0); }
-  40% { transform: translate(-1px, 0); }
-  60% { transform: translate(1px, 1px); }
-  80% { transform: translate(-1px, -1px); }
-  100% { transform: none; }
-}
-
-@keyframes glitch-top {
-  0% { clip: rect(0, 9999px, 0, 0); }
-  5% { clip: rect(0, 9999px, 5px, 0); transform: translate(1px, -1px); }
-  10% { clip: rect(0, 9999px, 0, 0); transform: none; }
-  100% { clip: rect(0, 9999px, 0, 0); }
-}
-
-@keyframes glitch-bottom {
-  0% { clip: rect(0, 9999px, 0, 0); }
-  5% { clip: rect(5px, 9999px, 10px, 0); transform: translate(-1px, 1px); }
-  10% { clip: rect(0, 9999px, 0, 0); transform: none; }
-  100% { clip: rect(0, 9999px, 0, 0); }
-}
-
 
 footer {
   margin-top: auto;
@@ -301,17 +248,17 @@ footer {
   transform: translate(-2px, 2px);
 }
 
-/* --- Головний стиль кнопки --- */
+/* --- Glitch Button --- */
 .glitch-link {
   margin: 40px auto 0 auto;
   display: block;
   position: relative;
   padding: 16px 40px;
-  background: transparent;
-  color: #f0f0f0;
-  border: 2px solid #f0f0f0;
+  background: #2c1938;
+  color: #ff99cc;
+  border: 2px solid #ff99cc;
   border-radius: 12px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: inherit;
   font-size: 1.1rem;
   font-weight: 700;
   letter-spacing: 1.5px;
@@ -319,145 +266,41 @@ footer {
   overflow: hidden;
   box-shadow: 0 0 8px #ee66a6cc;
   text-transform: uppercase;
-  transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.3s;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
   text-align: center;
   text-decoration: none;
 }
 
-/* --- Псевдоглітчевий текст --- */
-.glitch-link::before,
-.glitch-link::after {
-  content: attr(data-text);
+/* Глітч-ефект для тексту кнопки */
+.glitch-link span {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 16px 40px;
+  left: 0; right: 0; top: 0; bottom: 0;
+  display: block;
+  pointer-events: none;
   color: #00ffe7;
-  opacity: 0.7;
-  z-index: 2;
-  clip: rect(0, 0, 0, 0);
+  opacity: 0.8;
+  clip-path: inset(0 0 50% 0);
+  transform: translate(-2px, -2px);
+  z-index: 1;
+  
 }
-
-.glitch-link::after {
+.glitch-link span:last-child {
   color: #ff00c8;
-  opacity: 0.5;
+  clip-path: inset(50% 0 0 0);
+  transform: translate(2px, 2px);
 }
-
-.glitch-link:hover::before {
-  animation: glitch-clip 0.6s infinite linear alternate-reverse;
-}
-
-.glitch-link:hover::after {
-  animation: glitch-clip2 0.6s infinite linear alternate-reverse;
-}
-
-/* --- Основний ховер глітч --- */
 .glitch-link:hover, .glitch-link:focus {
-  background: #f0f0f0;
-  color: #111;
-  box-shadow: 0 0 10px #f0f0f0, 0 0 20px #00ffff, 0 0 30px #ff00ff;
-  transform: scale(1.05) skew(-1deg, 0.5deg);
-  animation: glitch-box 0.6s linear infinite alternate;
+  background: #ff00c8;
+  color: #fff;
+  box-shadow: 0 0 16px #ff00c8cc, 0 0 4px #00ffe7cc;
+  animation: glitch-box 0.5s linear infinite alternate;
 }
 
-/* --- Анімації глітчу --- */
 @keyframes glitch-box {
-  0% { transform: translate(0, 0); }
-  20% { transform: translate(-1px, 1px); }
-  40% { transform: translate(2px, -1px); }
-  60% { transform: translate(-1px, 2px); }
-  80% { transform: translate(1px, -1px); }
-  100% { transform: translate(0, 0); }
-}
-
-@keyframes glitch-clip {
-  0% {
-    clip: rect(0, 9999px, 0, 0);
-  }
-  20% {
-    clip: rect(5px, 9999px, 15px, 0);
-  }
-  40% {
-    clip: rect(10px, 9999px, 20px, 0);
-  }
-  60% {
-    clip: rect(15px, 9999px, 25px, 0);
-  }
-  80% {
-    clip: rect(20px, 9999px, 30px, 0);
-  }
-  100% {
-    clip: rect(25px, 9999px, 35px, 0);
-  }
-}
-
-@keyframes glitch-clip2 {
-  0% {
-    clip: rect(0, 9999px, 0, 0);
-  }
-  20% {
-    clip: rect(15px, 9999px, 25px, 0);
-  }
-  40% {
-    clip: rect(5px, 9999px, 15px, 0);
-  }
-  60% {
-    clip: rect(25px, 9999px, 35px, 0);
-  }
-  80% {
-    clip: rect(10px, 9999px, 20px, 0);
-  }
-  100% {
-    clip: rect(0, 9999px, 10px, 0);
-  }
-}
-
-
-
-#typewriter .cursor {
-  display: inline-block;
-  margin-left: 2px;
-  color: #f7f7f7;
-  animation: blink 0.7s infinite;
-}
-
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
-
-.footer-info {
-  margin-top: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 24px;
-  font-size: 0.9rem;
-  color: #aaffee;
-}
-
-.social-links-footer {
-  display: flex;
-  gap: 16px;
-}
-
-.social-links-footer a img {
-  width: 20px;
-  height: 20px;
-  filter: invert(70%) sepia(20%) saturate(300%) hue-rotate(270deg);
-  transition: filter 0.3s ease;
-}
-
-.social-links-footer a:hover img,
-.social-links-footer a:focus img {
-  filter: invert(30%) sepia(70%) saturate(700%) hue-rotate(290deg);
-}
-
-
-.status-label {
-  color: #ffb347;
-  font-style: italic;
-  font-family: 'Montserrat', monospace;
-  letter-spacing: 1px;
+  0% { box-shadow: 0 0 16px #ff00c8cc, 0 0 4px #00ffe7cc; }
+  20% { box-shadow: 4px 0 24px #00ffe7cc, -2px 0 8px #ff00c8cc; }
+  40% { box-shadow: -4px 4px 24px #ff00c8cc, 2px -4px 8px #00ffe7cc; }
+  60% { box-shadow: 0 0 16px #ff00c8cc, 0 0 4px #00ffe7cc; }
+  80% { box-shadow: 0 4px 20px #00ffe7cc, 0 -4px 10px #ff00c8cc; }
+  100% { box-shadow: 0 0 16px #ff00c8cc, 0 0 4px #00ffe7cc; }
 }

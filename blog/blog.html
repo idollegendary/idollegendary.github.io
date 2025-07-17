@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Блог | IDOLLEGENDARYstd</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="blog.css">
+  <style>
+    .blog-header {
+      text-align: center;
+      margin: 60px 0 40px 0;
+    }
+    .blog-header .glitch {
+      font-size: 2.4rem;
+    }
+    .blog-posts-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      justify-content: center;
+      margin-top: 24px;
+    }
+    .blog-card {
+      background: rgba(23, 18, 44, 0.94);
+      border-radius: 16px;
+      width: 350px;
+      box-shadow: 0 4px 16px #ee66a622, 0 0 12px #aa8fff22;
+      border: 2px solid #ff99cc;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.24s, box-shadow 0.24s;
+    }
+    .blog-card:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 8px 32px #ee66a6bb, 0 4px 16px #aa8fff88;
+    }
+    .blog-card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-bottom: 2px solid #ff99cc;
+      background: #2c1938;
+    }
+    .blog-content {
+      padding: 18px 16px 22px 16px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .blog-title {
+      color: #ff99cc;
+      font-size: 1.15rem;
+      margin: 0 0 8px 0;
+      letter-spacing: 1px;
+      font-weight: 700;
+    }
+    .blog-date {
+      color: #aaffee;
+      font-size: 0.95rem;
+      opacity: 0.70;
+      margin-bottom: 12px;
+    }
+    .blog-preview {
+      color: #f7f7f7;
+      font-size: 1.01rem;
+      opacity: 0.87;
+      flex: 1;
+    }
+    .blog-read-link {
+      margin-top: 18px;
+      padding: 9px 0;
+      background: none;
+      border: 2px solid #f7f7f7;
+      border-radius: 8px;
+      color: #f7f7f7;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 1.1px;
+      text-align: center;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s, box-shadow 0.3s;
+      box-shadow: 0 0 8px #ee66a6cc;
+      display: block;
+      cursor: pointer;
+    }
+    .blog-read-link:hover {
+      background: #f7f7f7;
+      color: #111;
+      box-shadow: 0 0 10px #f7f7f7, 0 0 20px #00ffff, 0 0 30px #ff00ff;
+    }
+  </style>
+</head>
+<body>
+  <div class="background-art">
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="blob blob3"></div>
+  </div>
+
+  <a href="/index.html">
+    <div class="glitch" data-text="idollegendary studio">idollegendary studio</div>
+  </a>
+  <div class="typewriter" id="typewriter">|</div>
+
+  <main>
+    <div class="section blog-header">
+      <h2 class="glitch" data-text="blog">blog</h2>
+      <p>Нотатки, інсайти та роздуми від IDOLLEGENDARY Studio</p>
+    </div>
+    <div class="section">
+      <div class="blog-posts-grid">
+        <!-- Приклад одного поста -->
+        <div class="blog-card">
+  <img src="https://placehold.co/300x180?text=mr.robot+v0.1" alt="mr robot project ver 0.1">
+  <div class="blog-content">
+    <div class="blog-title">demo project</div>
+    <div class="blog-date">update 15.07.2025</div>
+    <div class="blog-preview">
+      project version 0.1
+    </div>
+    <a href="/blog/posts/post.html" target="_blank" class="blog-read-link">читати далі</a>
+  </div>
+</div>
+
+        <!-- Ще один пост -->
+        <div class="blog-card">
+          <img src="https://placehold.co/350x160?text=Design+Trends" alt="Блог Тренди дизайну">
+          <div class="blog-content">
+            <div class="blog-title">Тренди вебдизайну 2025</div>
+            <div class="blog-date">01 квітня 2025</div>
+            <div class="blog-preview">
+              Про кольори, глітч-ефекти, футуризм та нестандартні інтерфейси, які формують сучасний вигляд сайтів.
+            </div>
+            <a href="/404/index.html" class="blog-read-link">читати далі</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="fun-fact glitch-text" data-text="Fact: Reality is just another glitch. Error is a feature.">
+      Fact: Reality is just another glitch. Error is a feature.
+    </div>
+    <div class="footer-info">
+      <span>© 2025 vladikvodopadik1999</span>
+      <div class="social-links-footer">
+        <a href="https://linkedin.com/in/твійпрофіль" target="_blank" aria-label="LinkedIn">
+          <img src="https://cdn-icons-png.flaticon.com/24/174/174857.png" alt="LinkedIn">
+        </a>
+        <a href="https://github.com/твійпрофіль" target="_blank" aria-label="GitHub">
+          <img src="https://cdn-icons-png.flaticon.com/24/25/25231.png" alt="GitHub">
+        </a>
+        <a href="https://t.me/твійпрофіль" target="_blank" aria-label="Telegram">
+          <img src="https://cdn-icons-png.flaticon.com/24/2111/2111646.png" alt="Telegram">
+        </a>
+      </div>
+    </div>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>

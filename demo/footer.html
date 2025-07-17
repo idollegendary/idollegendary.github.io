@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Glitch Footer Example</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #0d0d0d;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      height: 100vh;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    footer {
+      width: 100%;
+      padding: 20px;
+      text-align: center;
+      background-color: #0d0d0d;
+    }
+
+    .glitch-text {
+      position: relative;
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      animation: glitch-text 2.5s infinite;
+    }
+
+    .glitch-text::before,
+    .glitch-text::after {
+      content: attr(data-text);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      overflow: hidden;
+      color: #fff;
+      background: transparent;
+      clip: rect(0, 0, 0, 0);
+    }
+
+    .glitch-text::before {
+      animation: glitch-top 2.5s infinite;
+      color: #f0f;
+    }
+
+    .glitch-text::after {
+      animation: glitch-bottom 2.5s infinite;
+      color: #0ff;
+    }
+
+    @keyframes glitch-text {
+      0% { transform: none; }
+      20% { transform: translate(2px, 0); }
+      40% { transform: translate(-2px, 0); }
+      60% { transform: translate(2px, 2px); }
+      80% { transform: translate(-2px, -2px); }
+      100% { transform: none; }
+    }
+
+    @keyframes glitch-top {
+      0% { clip: rect(0, 9999px, 0, 0); }
+      5% { clip: rect(0, 9999px, 5px, 0); transform: translate(2px, -2px); }
+      10% { clip: rect(0, 9999px, 0, 0); transform: none; }
+      100% { clip: rect(0, 9999px, 0, 0); }
+    }
+
+    @keyframes glitch-bottom {
+      0% { clip: rect(0, 9999px, 0, 0); }
+      5% { clip: rect(5px, 9999px, 10px, 0); transform: translate(-2px, 2px); }
+      10% { clip: rect(0, 9999px, 0, 0); transform: none; }
+      100% { clip: rect(0, 9999px, 0, 0); }
+    }
+  </style>
+</head>
+<body>
+  <footer>
+    <div class="glitch-text" data-text="Fact: Reality is just another glitch. Error is a feature.">
+      Fact: Reality is just another glitch. Error is a feature.
+    </div>
+  </footer>
+</body>
+</html>
