@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VLADIK VODOPADIK — Music</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Space+Mono:wght@400;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+:root{--black:#060608;--white:#F0EEF5;--acid:#C8FF00;--magenta:#FF0080;--cyan:#00F5FF;--purple:#7B2FFF;--dark:#0D0D12;--mid:#1A1A24;--border:rgba(200,255,0,0.2);}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--black);color:var(--white);font-family:'Space Mono',monospace;overflow-x:hidden;cursor:crosshair;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:999;opacity:0.5;}
+body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.07) 2px,rgba(0,0,0,0.07) 4px);pointer-events:none;z-index:998;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 1.25rem;border-bottom:1px solid var(--border);background:rgba(6,6,8,0.9);backdrop-filter:blur(8px);}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.15em;color:var(--acid);}
+.nav-links{display:flex;gap:1.5rem;list-style:none;}
+.nav-links a{font-size:.65rem;letter-spacing:.15em;color:rgba(240,238,245,.5);text-decoration:none;text-transform:uppercase;transition:color .15s;}
+.nav-links a:hover{color:var(--acid);}
+
+.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding:6rem 1.25rem 2.5rem;position:relative;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 80% 20%,rgba(123,47,255,.3) 0%,transparent 70%),radial-gradient(ellipse 50% 60% at 10% 80%,rgba(255,0,128,.2) 0%,transparent 60%);animation:bgPulse 8s ease-in-out infinite alternate;}
+@keyframes bgPulse{from{opacity:.7}to{opacity:1}}
+.glitch-wrapper{position:relative;z-index:1;}
+.hero-status{font-size:.6rem;letter-spacing:.25em;color:var(--acid);text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;}
+.status-dot{width:6px;height:6px;border-radius:50%;background:var(--acid);animation:blink 1.2s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.1}}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(4.5rem,22vw,10rem);line-height:.88;letter-spacing:-.02em;color:var(--white);}
+.hero-title .glitch{position:relative;display:inline-block;}
+.hero-title .glitch::before,.hero-title .glitch::after{content:attr(data-text);position:absolute;top:0;left:0;width:100%;height:100%;}
+.hero-title .glitch::before{color:var(--magenta);animation:glitch1 3s infinite;clip-path:polygon(0 0,100% 0,100% 45%,0 45%);}
+.hero-title .glitch::after{color:var(--cyan);animation:glitch2 3s infinite;clip-path:polygon(0 55%,100% 55%,100% 100%,0 100%);}
+@keyframes glitch1{0%,90%,100%{transform:translate(0);opacity:0}91%{transform:translate(-3px,1px);opacity:1}93%{transform:translate(3px,-1px);opacity:1}95%{transform:translate(-2px,2px);opacity:.8}97%{transform:translate(0);opacity:0}}
+@keyframes glitch2{0%,85%,100%{transform:translate(0);opacity:0}86%{transform:translate(4px,-2px);opacity:1}89%{transform:translate(-3px,1px);opacity:.7}92%{transform:translate(0);opacity:0}}
+.hero-accent{color:var(--acid);display:block;}
+.hero-sub{margin-top:1.5rem;font-size:.7rem;letter-spacing:.1em;color:rgba(240,238,245,.4);text-transform:uppercase;max-width:280px;line-height:1.8;}
+.hero-tags{margin-top:1rem;display:flex;gap:.5rem;flex-wrap:wrap;}
+.tag{font-size:.6rem;letter-spacing:.12em;padding:.3rem .7rem;border:1px solid;text-transform:uppercase;}
+.tag-acid{border-color:var(--acid);color:var(--acid);}
+.tag-magenta{border-color:var(--magenta);color:var(--magenta);}
+.tag-cyan{border-color:var(--cyan);color:var(--cyan);}
+.scroll-hint{position:absolute;bottom:1.5rem;right:1.25rem;font-size:.55rem;letter-spacing:.2em;color:rgba(240,238,245,.25);text-transform:uppercase;writing-mode:vertical-rl;display:flex;align-items:center;gap:.5rem;}
+.scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,transparent,rgba(240,238,245,.25));animation:scrollPulse 2s ease-in-out infinite;}
+@keyframes scrollPulse{0%,100%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}}
+
+/* MARQUEE */
+.marquee-wrap{overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:.75rem 0;background:var(--mid);}
+.marquee-track{display:flex;gap:3rem;white-space:nowrap;will-change:transform;}
+.marquee-item{font-family:'Bebas Neue',sans-serif;font-size:.85rem;letter-spacing:.2em;color:rgba(240,238,245,.2);text-transform:uppercase;flex-shrink:0;}
+.marquee-item span{color:var(--acid);margin:0 1rem;}
+
+/* SECTIONS */
+.section-header{padding:0 1.25rem;margin-bottom:2rem;display:flex;align-items:center;gap:1rem;}
+.section-label{font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;color:var(--acid);}
+.section-line{flex:1;height:1px;background:var(--border);}
+.section-num{font-family:'Bebas Neue',sans-serif;font-size:.9rem;color:rgba(240,238,245,.15);letter-spacing:.1em;}
+
+/* RELEASES */
+.releases{padding:4rem 0;background:var(--dark);}
+.release-grid{padding:0 1.25rem;display:flex;flex-direction:column;}
+
+/* FEATURED */
+.featured-track{margin:0 1.25rem 2rem;padding:1.5rem;border:1px solid rgba(200,255,0,.2);background:rgba(200,255,0,.03);position:relative;overflow:hidden;cursor:pointer;transition:background .2s;}
+.featured-track::after{content:'NEW';position:absolute;top:-1px;right:1rem;background:var(--magenta);color:var(--white);font-size:.5rem;letter-spacing:.2em;padding:.2rem .6rem;}
+.featured-track:hover{background:rgba(200,255,0,.06);}
+.featured-track.is-playing{border-color:rgba(200,255,0,.6);background:rgba(200,255,0,.07);}
+.ft-label{font-size:.55rem;letter-spacing:.25em;color:rgba(200,255,0,.5);text-transform:uppercase;margin-bottom:.75rem;}
+.ft-title{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;line-height:1;letter-spacing:.05em;color:var(--white);}
+.ft-meta{margin-top:.75rem;display:flex;align-items:center;justify-content:space-between;}
+.ft-duration{font-size:.65rem;color:rgba(240,238,245,.3);}
+.ft-play{display:flex;align-items:center;gap:.5rem;font-size:.6rem;letter-spacing:.15em;color:var(--acid);text-transform:uppercase;}
+.waveform{display:flex;align-items:center;gap:2px;margin-top:1rem;height:32px;}
+.wave-bar{flex:1;background:rgba(200,255,0,.25);border-radius:1px;transform:scaleY(.25);transform-origin:center;}
+.wave-bar.animated{animation:wavePulse var(--d,.8s) ease-in-out infinite alternate;}
+@keyframes wavePulse{from{transform:scaleY(.2);opacity:.2}to{transform:scaleY(1);opacity:.9}}
+
+/* SINGLE ROW */
+.release-item{display:flex;align-items:center;gap:1rem;padding:1.1rem 0;border-bottom:1px solid rgba(200,255,0,.07);position:relative;cursor:pointer;}
+.release-item::before{content:'';position:absolute;left:-1.25rem;top:0;bottom:0;width:3px;background:var(--acid);transform:scaleY(0);transition:transform .2s;}
+.release-item:hover::before,.release-item.is-playing::before{transform:scaleY(1);}
+.release-item.is-playing .release-title{color:var(--acid);}
+.release-cover{width:52px;height:52px;flex-shrink:0;overflow:hidden;}
+.cover-art{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.05em;position:relative;}
+.cover-art::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 4px,rgba(0,0,0,.15) 4px,rgba(0,0,0,.15) 5px);}
+.cover-1{background:linear-gradient(135deg,#7B2FFF 0%,#FF0080 100%);}
+.cover-2{background:linear-gradient(135deg,#00F5FF 0%,#7B2FFF 100%);}
+.cover-3{background:linear-gradient(135deg,#C8FF00 0%,#00F5FF 100%);color:#000;}
+.cover-4{background:linear-gradient(135deg,#FF0080 0%,#C8FF00 50%,#7B2FFF 100%);}
+.cover-5{background:linear-gradient(135deg,#0D0D12 0%,#7B2FFF 100%);border:1px solid rgba(200,255,0,.3);}
+.release-info{flex:1;min-width:0;}
+.release-title{font-family:'Black Han Sans',sans-serif;font-size:.95rem;letter-spacing:.02em;line-height:1.2;transition:color .15s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.release-meta{font-size:.6rem;letter-spacing:.1em;color:rgba(240,238,245,.35);text-transform:uppercase;margin-top:.3rem;}
+.release-type{font-size:.55rem;padding:.15rem .4rem;border:1px solid;letter-spacing:.1em;text-transform:uppercase;flex-shrink:0;}
+.type-single{border-color:var(--cyan);color:var(--cyan);}
+.type-ep{border-color:var(--magenta);color:var(--magenta);}
+.type-album{border-color:var(--acid);color:var(--acid);}
+.play-btn{width:30px;height:30px;border:1px solid rgba(200,255,0,.3);background:transparent;color:var(--acid);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s;font-size:.75rem;}
+.play-btn:hover,.release-item.is-playing .play-btn{background:var(--acid);color:var(--black);border-color:var(--acid);}
+.mini-wave{display:flex;align-items:center;gap:1px;height:14px;width:18px;flex-shrink:0;}
+.mini-bar{flex:1;background:var(--acid);border-radius:1px;transform:scaleY(.25);transform-origin:center;}
+.mini-bar.animated{animation:wavePulse var(--d,.6s) ease-in-out infinite alternate;}
+
+/* COLLECTION (EP/Album) */
+.release-collection{border-bottom:1px solid rgba(200,255,0,.07);}
+.collection-header{display:flex;align-items:center;gap:1rem;padding:1.1rem 0;cursor:pointer;position:relative;}
+.collection-header::before{content:'';position:absolute;left:-1.25rem;top:0;bottom:0;width:3px;background:var(--acid);transform:scaleY(0);transition:transform .2s;}
+.release-collection.open .collection-header::before{transform:scaleY(1);}
+.release-collection.open .collection-header .release-title{color:var(--acid);}
+.chevron{font-size:.75rem;color:rgba(240,238,245,.3);transition:transform .25s;flex-shrink:0;margin-left:auto;user-select:none;}
+.release-collection.open .chevron{transform:rotate(180deg);color:var(--acid);}
+.tracklist{display:none;flex-direction:column;margin-left:calc(52px + 1rem);padding-bottom:.75rem;}
+.release-collection.open .tracklist{display:flex;}
+.track-row{display:flex;align-items:center;gap:.75rem;padding:.65rem 0;border-bottom:1px solid rgba(240,238,245,.04);cursor:pointer;}
+.track-row:last-child{border-bottom:none;}
+.track-num{font-size:.6rem;color:rgba(240,238,245,.2);width:18px;text-align:right;flex-shrink:0;transition:color .15s;}
+.track-name{flex:1;font-size:.8rem;letter-spacing:.03em;transition:color .15s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.track-dur{font-size:.6rem;color:rgba(240,238,245,.25);flex-shrink:0;}
+.track-row:hover .track-name,.track-row.is-playing .track-name{color:var(--acid);}
+.track-row.is-playing .track-num{color:var(--acid);}
+
+/* ABOUT */
+.about-section{padding:4rem 1.25rem;background:var(--mid);position:relative;overflow:hidden;}
+.about-section::before{content:'BIO';position:absolute;right:-.5rem;top:50%;transform:translateY(-50%);font-family:'Bebas Neue',sans-serif;font-size:12rem;color:rgba(200,255,0,.03);line-height:1;pointer-events:none;}
+.bio-text{font-size:.85rem;line-height:2;color:rgba(240,238,245,.7);position:relative;z-index:1;}
+.bio-text strong{color:var(--acid);font-weight:700;}
+.bio-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;margin-top:2rem;background:rgba(200,255,0,.1);}
+.stat-box{background:var(--mid);padding:1.25rem;text-align:center;}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;line-height:1;color:var(--acid);}
+.stat-label{font-size:.55rem;letter-spacing:.18em;color:rgba(240,238,245,.3);text-transform:uppercase;margin-top:.3rem;}
+
+/* SOCIALS */
+.social-section{padding:3rem 1.25rem;background:var(--dark);}
+.social-link{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 0;border-bottom:1px solid rgba(240,238,245,.05);text-decoration:none;color:inherit;position:relative;overflow:hidden;}
+.social-link::before{content:'';position:absolute;left:0;top:0;bottom:0;width:0;background:rgba(200,255,0,.05);transition:width .3s;}
+.social-link:hover::before{width:100%;}
+.social-name{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:.08em;color:rgba(240,238,245,.2);transition:color .15s;position:relative;z-index:1;}
+.social-link:hover .social-name{color:var(--acid);}
+.social-handle{font-size:.6rem;letter-spacing:.1em;color:rgba(240,238,245,.3);text-transform:uppercase;position:relative;z-index:1;transition:color .15s;}
+.social-link:hover .social-handle{color:var(--acid);}
+
+footer{padding:2rem 1.25rem;background:var(--black);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.15em;color:var(--acid);opacity:.4;}
+.footer-copy{font-size:.55rem;letter-spacing:.12em;color:rgba(240,238,245,.2);text-transform:uppercase;}
+
+/* PLAYER BAR */
+.player-bar{position:fixed;bottom:0;left:0;right:0;z-index:200;background:rgba(13,13,18,.97);backdrop-filter:blur(12px);border-top:1px solid var(--border);padding:.75rem 1.25rem;display:none;flex-direction:column;gap:.6rem;}
+.player-bar.active{display:flex;}
+.player-top{display:flex;align-items:center;gap:.75rem;}
+.player-thumb{width:36px;height:36px;flex-shrink:0;}
+.player-info{flex:1;min-width:0;}
+.player-song{font-family:'Black Han Sans',sans-serif;font-size:.85rem;letter-spacing:.03em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.player-artist{font-size:.55rem;letter-spacing:.12em;color:rgba(240,238,245,.4);text-transform:uppercase;margin-top:.1rem;}
+.player-controls{display:flex;align-items:center;gap:.5rem;}
+.ctrl-btn{background:none;border:none;color:rgba(240,238,245,.5);cursor:pointer;font-size:.85rem;padding:.3rem;transition:color .15s;line-height:1;}
+.ctrl-btn:hover{color:var(--acid);}
+.ctrl-btn.main{color:var(--acid);font-size:1.1rem;}
+.progress-wrap{display:flex;align-items:center;gap:.5rem;}
+.time-label{font-size:.55rem;color:rgba(240,238,245,.3);letter-spacing:.05em;min-width:28px;font-variant-numeric:tabular-nums;}
+.progress-bar{flex:1;height:3px;background:rgba(240,238,245,.1);position:relative;cursor:pointer;}
+.progress-fill{height:100%;background:var(--acid);width:0%;position:relative;transition:none;}
+.progress-fill::after{content:'';position:absolute;right:-4px;top:-2.5px;width:8px;height:8px;border-radius:50%;background:var(--acid);}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">VLADIK VODOPADIK</div>
+  <ul class="nav-links">
+    <li><a href="#music">Music</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#links">Links</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="glitch-wrapper">
+    <div class="hero-status"><div class="status-dot"></div>New single out now</div>
+    <h1 class="hero-title">
+      <span class="glitch" data-text="VLADIK">VLADIK</span><br>
+      <span class="hero-accent glitch" data-text="VODOPADIK">VODOPADIK</span>
+    </h1>
+    <p class="hero-sub">Noise that feels like something. Music from the edge of signal and silence.</p>
+    <div class="hero-tags">
+      <span class="tag tag-acid">Alt-Rock</span>
+      <span class="tag tag-magenta">Post-Hardcore</span>
+      <span class="tag tag-cyan">Hyperpop</span>
+    </div>
+  </div>
+  <div class="scroll-hint"><div class="scroll-line"></div>Scroll</div>
+</section>
+
+<div class="marquee-wrap" aria-hidden="true">
+  <div class="marquee-track" id="marqueeTrack">
+    <span class="marquee-item">New Single<span>★</span>FEEDBACK LOOP</span>
+    <span class="marquee-item">Streaming Now<span>★</span>All Platforms</span>
+    <span class="marquee-item">Latest EP<span>★</span>GLITCH SEASON</span>
+    <span class="marquee-item">Album<span>★</span>DEAD FREQUENCY</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MUSIC
+══════════════════════════════════════════════ -->
+<section class="releases" id="music">
+  <div class="section-header">
+    <span class="section-label">Discography</span>
+    <div class="section-line"></div>
+    <span class="section-num">01</span>
+  </div>
+
+  <!--
+  ╔══════════════════════════════════════════╗
+  ║  ✏️  ЯК ДОДАТИ СВОЇ ТРЕКИ               ║
+  ║                                          ║
+  ║  1. Знайди тег <audio id="...">          ║
+  ║  2. У <source src=""> вставте шлях       ║
+  ║     до свого mp3/ogg файлу, наприклад:  ║
+  ║     src="tracks/my-track.mp3"           ║
+  ║  3. Збережіть файл поряд з html,        ║
+  ║     або вкажіть повний шлях/URL         ║
+  ╚══════════════════════════════════════════╝
+  -->
+
+  <!-- ── FEATURED SINGLE ── -->
+  <div class="featured-track" id="ft-featured" onclick="toggleFeatured()">
+    <div class="ft-label">Latest Single — 2026</div>
+    <div class="ft-title" id="ft-name">У вогні є ще Один</div>
+    <div class="waveform" id="hero-wave"></div>
+    <div class="ft-meta">
+      <span class="ft-duration" id="ft-dur">—</span>
+      <span class="ft-play" id="ft-playbtn">▶ Play Now</span>
+    </div>
+  </div>
+  <!-- ✏️ src="" ← вставте шлях до mp3 -->
+  <audio id="audio-featured" preload="metadata"><source src="/audio/ще один.mp3" type="audio/mpeg"></audio>
+
+  <div class="release-grid">
+
+    <!-- ── SINGLE 1 ── -->
+    <!-- ✏️ src="" ← шлях до mp3 -->
+    <audio id="audio-single1" preload="none"><source src="/audio/ще один.mp3" type="audio/mpeg"></audio>
+    <div class="release-item" id="ri-single1" onclick="toggleSingle('single1','STATIC HEART','cover-2')">
+      <div class="release-cover"><div class="cover-art cover-2">/</div></div>
+      <div class="release-info">
+        <div class="release-title">У вогні є ще Один</div>
+        <div class="release-meta">2026 · Single</div>
+      </div>
+      <span class="release-type type-single">Single</span>
+      <div class="mini-wave" id="mw-single1"><div class="mini-bar" style="--d:.5s"></div><div class="mini-bar" style="--d:.7s"></div><div class="mini-bar" style="--d:.4s"></div><div class="mini-bar" style="--d:.6s"></div><div class="mini-bar" style="--d:.8s"></div></div>
+      <button class="play-btn" id="pb-single1">▶</button>
+    </div>
+
+    <!-- ── SINGLE 2 ── -->
+    <!-- ✏️ src="" ← шлях до mp3 -->
+    <audio id="audio-single2" preload="none"><source src="/audio/чернетка.mp3" type="audio/mpeg"></audio>
+    <div class="release-item" id="ri-single2" onclick="toggleSingle('single2','NEON COLLAPSE','cover-4')">
+      <div class="release-cover"><div class="cover-art cover-4">/</div></div>
+      <div class="release-info">
+        <div class="release-title">notes</div>
+        <div class="release-meta">2026 · Single</div>
+      </div>
+      <span class="release-type type-single">Single</span>
+      <div class="mini-wave" id="mw-single2"><div class="mini-bar" style="--d:.6s"></div><div class="mini-bar" style="--d:.4s"></div><div class="mini-bar" style="--d:.8s"></div><div class="mini-bar" style="--d:.5s"></div><div class="mini-bar" style="--d:.7s"></div></div>
+      <button class="play-btn" id="pb-single2">▶</button>
+    </div>
+    
+    <!-- ── SINGLE 3 ── -->
+    <!-- ✏️ src="" ← шлях до mp3 -->
+    <audio id="audio-single3" preload="none"><source src="/audio/darkness.mp3" type="audio/mpeg"></audio>
+    <div class="release-item" id="ri-single3" onclick="toggleSingle('single3','NEON COLLAPSE','cover-4')">
+      <div class="release-cover"><div class="cover-art cover-4">/</div></div>
+      <div class="release-info">
+        <div class="release-title">darkness</div>
+        <div class="release-meta">2026 · Single</div>
+      </div>
+      <span class="release-type type-single">Single</span>
+      <div class="mini-wave" id="mw-single3"><div class="mini-bar" style="--d:.6s"></div><div class="mini-bar" style="--d:.4s"></div><div class="mini-bar" style="--d:.8s"></div><div class="mini-bar" style="--d:.5s"></div><div class="mini-bar" style="--d:.7s"></div></div>
+      <button class="play-btn" id="pb-single3">▶</button>
+    </div>
+    
+    <!-- ── SINGLE 4 ── -->
+    <!-- ✏️ src="" ← шлях до mp3 -->
+    <audio id="audio-single4" preload="none"><source src="/audio/Untitled1cliper.mp3" type="audio/mpeg"></audio>
+    <div class="release-item" id="ri-single4" onclick="toggleSingle('single4','EXCOMMUNICATED','cover-4')">
+      <div class="release-cover"><div class="cover-art cover-4">/</div></div>
+      <div class="release-info">
+        <div class="release-title">EXCOMMUNICATED</div>
+        <div class="release-meta">2026 · Single</div>
+      </div>
+      <span class="release-type type-single">Single</span>
+      <div class="mini-wave" id="mw-single4"><div class="mini-bar" style="--d:.6s"></div><div class="mini-bar" style="--d:.4s"></div><div class="mini-bar" style="--d:.8s"></div><div class="mini-bar" style="--d:.5s"></div><div class="mini-bar" style="--d:.7s"></div></div>
+      <button class="play-btn" id="pb-single4">▶</button>
+    </div>
+
+    <!-- ── EP ── -->
+    <div class="release-collection" id="col-ep1">
+      <div class="collection-header" onclick="toggleCollection('ep1')">
+        <div class="release-cover"><div class="cover-art cover-3">RE</div></div>
+        <div class="release-info">
+          <div class="release-title">RECURSION</div>
+          <div class="release-meta">2026 · EP · 3 tracks</div>
+        </div>
+        <span class="release-type type-ep">EP</span>
+        <span class="chevron">▾</span>
+      </div>
+      <div class="tracklist">
+        <!-- ✏️ Кожен src="" ← шлях до відповідного mp3 -->
+        <audio id="audio-ep1t1" preload="none"><source src="/album/серце бʼється.mp3" type="audio/mpeg"></audio>
+        <div class="track-row" id="tr-ep1t1" onclick="toggleTrack('ep1t1','NEPTUNE','cover-3')">
+          <span class="track-num">01</span><span class="track-name">NEPTUNE</span><span class="track-dur">3:02</span>
+          <div class="mini-wave" id="mw-ep1t1"><div class="mini-bar" style="--d:.5s"></div><div class="mini-bar" style="--d:.7s"></div><div class="mini-bar" style="--d:.4s"></div></div>
+        </div>
+
+        <audio id="audio-ep1t2" preload="none"><source src="/album/пікселі дня.mp3" type="audio/mpeg"></audio>
+        <div class="track-row" id="tr-ep1t2" onclick="toggleTrack('ep1t2','PIXELS','cover-3')">
+          <span class="track-num">02</span><span class="track-name">PIXELS</span><span class="track-dur">2:21</span>
+          <div class="mini-wave" id="mw-ep1t2"><div class="mini-bar" style="--d:.6s"></div><div class="mini-bar" style="--d:.4s"></div><div class="mini-bar" style="--d:.8s"></div></div>
+        </div>
+
+        <audio id="audio-ep1t3" preload="none"><source src="/album/пахнеш спогадами.mp3" type="audio/mpeg"></audio>
+        <div class="track-row" id="tr-ep1t3" onclick="toggleTrack('ep1t3','ECHOES','cover-3')">
+          <span class="track-num">03</span><span class="track-name">ECHOES</span><span class="track-dur">2:00</span>
+          <div class="mini-wave" id="mw-ep1t3"><div class="mini-bar" style="--d:.7s"></div><div class="mini-bar" style="--d:.5s"></div><div class="mini-bar" style="--d:.6s"></div></div>
+        </div>
+
+        
+      </div>
+    </div>
+
+    <!-- ── ALBUM ── -->
+    
+    <div class="release-collection" id="col-alb1">
+      <div class="collection-header" onclick="toggleCollection('alb1')">
+        <div class="release-cover"><div class="cover-art cover-5">DF</div></div>
+        <div class="release-info">
+          <div class="release-title">DEAD FREQUENCY</div>
+          <div class="release-meta">2023 · Album · 10 tracks</div>
+        </div>
+        <span class="release-type type-album">Album</span>
+        <span class="chevron">▾</span>
+      </div>
+      <div class="tracklist">
+        <!-- ✏️ Кожен src="" ← шлях до відповідного mp3 -->
+        <audio id="audio-alb1t1" preload="none"><source src="" type="audio/mpeg"></audio>
+        <div class="track-row" id="tr-alb1t1" onclick="toggleTrack('alb1t1','ZERO SIGNAL','cover-5')">
+          <span class="track-num">01</span><span class="track-name">ZERO SIGNAL</span><span class="track-dur">1:08</span>
+          <div class="mini-wave" id="mw-alb1t1"><div class="mini-bar" style="--d:.5s"></div><div class="mini-bar" style="--d:.7s"></div><div class="mini-bar" style="--d:.4s"></div></div>
+        </div>
+        <audio id="audio-alb1t2" preload="none"><source src="" type="audio/mpeg"></audio>
+        <div class="track-row" id="tr-alb1t2" onclick="toggleTrack('alb1t2','DEAD FREQUENCY','cover-5')">
+          <span class="track-num">02</span><span class="track-name">DEAD FREQUENCY</span><span class="track-dur">4:33</span>
+          <div class="mini-wave" id="mw-alb1t2"><div class="mini-bar" style="--d:.6s"></div><div class="mini-bar" style="--d:.4s"></div><div class="mini-bar" style="--d:.8s"></div></div>
+        </div>
+        <audio id="audio-alb1t3" preload="none"><source src="" type="audio/mpeg"></audio>
+        <div class="track-row" id="tr-alb1t3" onclick="toggleTrack('alb1t3','HOLLOW BROADCAST','cover-5')">
+          <span class="track-num">03</span><span class="track-name">HOLLOW BROADCAST</span><span class="track-dur">3:55</span>
+          <div class="mini-wave" id="mw-alb1t3"><div class="mini-bar" style="--d:.7s"></div><div class="mini-bar" style="--d:.5s"></div><div class="mini-bar" style="--d:.6s"></div></div>
+        </div>
+        <audio id="audio-alb1t4" preload="none"><source src="" type="audio/mpeg"></audio>
+        <div class="track-row" id="tr-alb1t4" onclick="toggleTrack('alb1t4','GHOST CARRIER','cover-5')">
+          <span class="track-num">04</span><span class="track-name">GHOST CARRIER</span><span class="track-dur">5:12</span>
+          <div class="mini-wave" id="mw-alb1t4"><div class="mini-bar" style="--d:.4s"></div><div class="mini-bar" style="--d:.8s"></div><div class="mini-bar" style="--d:.6s"></div></div>
+        </div>
+        <audio id="audio-alb1t5" preload="none"><source src="" type="audio/mpeg"></audio>
+        <div class="track-row" id="tr-alb1t5" onclick="toggleTrack('alb1t5','NOISE FLOOR','cover-5')">
+          <span class="track-num">05</span><span class="track-name">NOISE FLOOR</span><span class="track-dur">3:27</span>
+          <div class="mini-wave" id="mw-alb1t5"><div class="mini-bar" style="--d:.5s"></div><div class="mini-bar" style="--d:.7s"></div><div class="mini-bar" style="--d:.9s"></div></div>
+        </div>
+        <audio id="audio-alb1t6" preload="none"><source src="" type="audio/mpeg"></audio>
+        <div class="track-row" id="tr-alb1t6" onclick="toggleTrack('alb1t6','STATIC PRAYER','cover-5')">
+          <span class="track-num">06</span><span class="track-name">STATIC PRAYER</span><span class="track-dur">4:01</span>
+          <div class="mini-wave" id="mw-alb1t6"><div class="mini-bar" style="--d:.6s"></div><div class="mini-bar" style="--d:.4s"></div><div class="mini-bar" style="--d:.7s"></div></div>
+        </div>
+        <audio id="audio-alb1t7" preload="none"><source src="" type="audio/mpeg"></audio>
+        <div class="track-row" id="tr-alb1t7" onclick="toggleTrack('alb1t7','IRON FEEDBACK','cover-5')">
+          <span class="track-num">07</span><span class="track-name">IRON FEEDBACK</span><span class="track-dur">2:49</span>
+          <div class="mini-wave" id="mw-alb1t7"><div class="mini-bar" style="--d:.5s"></div><div class="mini-bar" style="--d:.6s"></div><div class="mini-bar" style="--d:.4s"></div></div>
+        </div>
+        <audio id="audio-alb1t8" preload="none"><source src="" type="audio/mpeg"></audio>
+        <div class="track-row" id="tr-alb1t8" onclick="toggleTrack('alb1t8','VOID HYMN','cover-5')">
+          <span class="track-num">08</span><span class="track-name">VOID HYMN</span><span class="track-dur">6:20</span>
+          <div class="mini-wave" id="mw-alb1t8"><div class="mini-bar" style="--d:.7s"></div><div class="mini-bar" style="--d:.5s"></div><div class="mini-bar" style="--d:.8s"></div></div>
+        </div>
+        <audio id="audio-alb1t9" preload="none"><source src="" type="audio/mpeg"></audio>
+        <div class="track-row" id="tr-alb1t9" onclick="toggleTrack('alb1t9','LAST TRANSMISSION','cover-5')">
+          <span class="track-num">09</span><span class="track-name">LAST TRANSMISSION</span><span class="track-dur">4:44</span>
+          <div class="mini-wave" id="mw-alb1t9"><div class="mini-bar" style="--d:.6s"></div><div class="mini-bar" style="--d:.9s"></div><div class="mini-bar" style="--d:.5s"></div></div>
+        </div>
+        <audio id="audio-alb1t10" preload="none"><source src="" type="audio/mpeg"></audio>
+        <div class="track-row" id="tr-alb1t10" onclick="toggleTrack('alb1t10','DEAD SILENCE','cover-5')">
+          <span class="track-num">10</span><span class="track-name">DEAD SILENCE</span><span class="track-dur">2:11</span>
+          <div class="mini-wave" id="mw-alb1t10"><div class="mini-bar" style="--d:.4s"></div><div class="mini-bar" style="--d:.6s"></div><div class="mini-bar" style="--d:.7s"></div></div>
+        </div>
+      </div>
+    </div>
+    
+
+  </div>
+</section>
+
+<section class="about-section" id="about">
+  <div class="section-header" style="padding:0;margin-bottom:1.5rem;">
+    <span class="section-label">Bio</span>
+    <div class="section-line"></div>
+    <span class="section-num">02</span>
+  </div>
+  <p class="bio-text">Музика на межі між <strong>шумом і мелодією</strong>, між зламом і красою. Виник із підвалів і гаражів, зараз займає простір між alt-rock, <strong>post-hardcore</strong> і hyperpop — де дисторшн зустрічається з синтетикою, а голос стає зброєю. Жоден жанр не підходить. Всі підходять одночасно.</p>
+  <div class="bio-stats">
+    <div class="stat-box"><div class="stat-num">4</div><div class="stat-label">Роки</div></div>
+    <div class="stat-box"><div class="stat-num">18</div><div class="stat-label">Релізи</div></div>
+    <div class="stat-box"><div class="stat-num">60+</div><div class="stat-label">Концерти</div></div>
+    <div class="stat-box"><div class="stat-num">∞</div><div class="stat-label">Шум</div></div>
+  </div>
+</section>
+
+<section class="social-section" id="links">
+  <div class="section-header" style="padding:0;margin-bottom:.5rem;">
+    <span class="section-label">Links</span><div class="section-line"></div><span class="section-num">03</span>
+  </div>
+  <a href="#" class="social-link"><span class="social-name">Spotify</span><span class="social-handle">@voidstatic →</span></a>
+  <a href="#" class="social-link"><span class="social-name">Instagram</span><span class="social-handle">@void.static →</span></a>
+  <a href="#" class="social-link"><span class="social-name">Bandcamp</span><span class="social-handle">voidstatic.bandcamp →</span></a>
+  <a href="#" class="social-link"><span class="social-name">YouTube</span><span class="social-handle">@VOIDSTATIC →</span></a>
+  <a href="#" class="social-link"><span class="social-name">SoundCloud</span><span class="social-handle">soundcloud/voidstatic →</span></a>
+</section>
+
+<footer>
+  <div class="footer-logo">VLADIK VODOPADIK</div>
+  <div class="footer-copy">© 2026 — All Rights Reserved</div>
+</footer>
+
+<!-- PLAYER BAR -->
+<div class="player-bar" id="playerBar">
+  <div class="player-top">
+    <div class="player-thumb cover-art" id="playerThumb"></div>
+    <div class="player-info">
+      <div class="player-song" id="playerSong">—</div>
+      <div class="player-artist">VLADIK VODOPADIK</div>
+    </div>
+    <div class="player-controls">
+      <button class="ctrl-btn" onclick="skipTrack(-1)" title="Prev">⏮</button>
+      <button class="ctrl-btn main" id="playPauseBtn" onclick="togglePlay()">▶</button>
+      <button class="ctrl-btn" onclick="skipTrack(1)" title="Next">⏭</button>
+      <button class="ctrl-btn" onclick="closePlayer()" title="Close">✕</button>
+    </div>
+  </div>
+  <div class="progress-wrap">
+    <span class="time-label" id="timeNow">0:00</span>
+    <div class="progress-bar" id="progressBar" onclick="seekTrack(event)">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+    <span class="time-label" id="timeTotal">0:00</span>
+  </div>
+</div>
+
+<script>
+/* ── MARQUEE smooth rAF ── */
+(function(){
+  const track = document.getElementById('marqueeTrack');
+  track.innerHTML += track.innerHTML;
+  const half = () => track.scrollWidth / 2;
+  let pos = 0, last = null;
+  function tick(ts){
+    if(last !== null){
+      pos += (ts - last) * 0.038;
+      if(pos >= half()) pos -= half();
+      track.style.transform = 'translateX(-' + pos + 'px)';
+    }
+    last = ts;
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
+
+/* ── waveform ── */
+function buildWave(el, count){
+  el.innerHTML = '';
+  for(let i = 0; i < count; i++){
+    const b = document.createElement('div');
+    b.className = 'wave-bar';
+    b.style.cssText = 'height:' + (15 + Math.random()*85) + '%;--d:' + (0.4+Math.random()*0.8).toFixed(2) + 's;animation-delay:' + (Math.random()*0.5).toFixed(2) + 's';
+    el.appendChild(b);
+  }
+}
+buildWave(document.getElementById('hero-wave'), 60);
+
+/* ── state ── */
+var currentAudio = null;
+var currentId    = null;
+
+function fmt(s){
+  if(!s || isNaN(s) || !isFinite(s)) return '0:00';
+  return Math.floor(s/60) + ':' + String(Math.floor(s%60)).padStart(2,'0');
+}
+
+function animMW(id, on){
+  var mw = document.getElementById('mw-' + id);
+  if(!mw) return;
+  mw.querySelectorAll('.mini-bar').forEach(function(b){
+    on ? b.classList.add('animated') : b.classList.remove('animated');
+  });
+}
+
+function animHero(on){
+  document.getElementById('hero-wave').querySelectorAll('.wave-bar').forEach(function(b){
+    on ? b.classList.add('animated') : b.classList.remove('animated');
+  });
+}
+
+/* ── playlist registry ── */
+var playlist = [];
+function regTrack(id, audioId, title, cover){
+  if(!playlist.find(function(p){ return p.id===id; }))
+    playlist.push({id:id, audioId:audioId, title:title, cover:cover});
+}
+regTrack('featured','audio-featured','FEEDBACK LOOP','cover-1');
+regTrack('single1','audio-single1','STATIC HEART','cover-2');
+regTrack('single2','audio-single2','NEON COLLAPSE','cover-4');
+['ep1t1','ep1t2','ep1t3','ep1t4','ep1t5'].forEach(function(id,i){
+  var names=['GLITCH INTRO','PIXEL BLEED','CRASH WAVE','OVERLOAD','SIGNAL END'];
+  regTrack(id,'audio-'+id,String(i+1).padStart(2,'0')+'. '+names[i],'cover-3');
+});
+['alb1t1','alb1t2','alb1t3','alb1t4','alb1t5','alb1t6','alb1t7','alb1t8','alb1t9','alb1t10'].forEach(function(id,i){
+  var names=['ZERO SIGNAL','DEAD FREQUENCY','HOLLOW BROADCAST','GHOST CARRIER','NOISE FLOOR','STATIC PRAYER','IRON FEEDBACK','VOID HYMN','LAST TRANSMISSION','DEAD SILENCE'];
+  regTrack(id,'audio-'+id,String(i+1).padStart(2,'0')+'. '+names[i],'cover-5');
+});
+
+/* ── clear all states ── */
+function clearAll(){
+  document.getElementById('ft-featured').classList.remove('is-playing');
+  document.getElementById('ft-playbtn').textContent = '▶ Play Now';
+  animHero(false);
+  ['single1','single2'].forEach(function(id){
+    var ri = document.getElementById('ri-'+id);
+    if(ri) ri.classList.remove('is-playing');
+    var pb = document.getElementById('pb-'+id);
+    if(pb) pb.textContent = '▶';
+    animMW(id, false);
+  });
+  document.querySelectorAll('.track-row').forEach(function(r){ r.classList.remove('is-playing'); });
+  document.querySelectorAll('[id^="mw-"]').forEach(function(mw){
+    mw.querySelectorAll('.mini-bar').forEach(function(b){ b.classList.remove('animated'); });
+  });
+}
+
+/* ── update player bar ── */
+function setBar(title, cover){
+  document.getElementById('playerSong').textContent = title;
+  var th = document.getElementById('playerThumb');
+  th.className = 'player-thumb cover-art ' + (cover||'cover-1');
+  th.textContent = title.replace(/^\d+\.\s*/,'').split(' ').map(function(w){ return w[0]; }).join('').slice(0,2);
+  document.getElementById('playerBar').classList.add('active');
+  document.body.style.paddingBottom = '100px';
+}
+
+/* ── bind audio events ── */
+function bindAudio(a){
+  a.ontimeupdate = function(){
+    var pct = a.duration ? (a.currentTime/a.duration*100) : 0;
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('timeNow').textContent = fmt(a.currentTime);
+  };
+  a.ondurationchange = function(){ document.getElementById('timeTotal').textContent = fmt(a.duration); };
+  a.onplay  = function(){ document.getElementById('playPauseBtn').textContent = '⏸'; };
+  a.onpause = function(){ document.getElementById('playPauseBtn').textContent = '▶'; };
+  a.onended = function(){ skipTrack(1); };
+}
+
+/* ── generic launch ── */
+function launch(audioEl, id, title, cover){
+  if(currentAudio && currentAudio !== audioEl){
+    currentAudio.pause();
+    currentAudio.currentTime = 0;
+  }
+  clearAll();
+  currentAudio = audioEl;
+  currentId    = id;
+  bindAudio(audioEl);
+  var src = audioEl.querySelector('source') ? audioEl.querySelector('source').getAttribute('src') : '';
+  setBar(title, cover);
+  if(src && src !== '' && src !== window.location.href){
+    audioEl.load();
+    audioEl.play().catch(function(){});
+  } else {
+    /* No real file — just show bar in "playing" state visually */
+    document.getElementById('playPauseBtn').textContent = '⏸';
+    document.getElementById('timeTotal').textContent = '—';
+  }
+}
+
+/* ── FEATURED ── */
+function toggleFeatured(){
+  var audio = document.getElementById('audio-featured');
+  var ft    = document.getElementById('ft-featured');
+  var btn   = document.getElementById('ft-playbtn');
+  if(currentId === 'featured'){
+    if(audio.src && !audio.paused){ audio.pause(); ft.classList.remove('is-playing'); btn.textContent='▶ Play Now'; animHero(false); }
+    else { audio.play().catch(function(){}); ft.classList.add('is-playing'); btn.textContent='⏸ Pause'; animHero(true); }
+    return;
+  }
+  launch(audio,'featured','FEEDBACK LOOP','cover-1');
+  ft.classList.add('is-playing');
+  btn.textContent = '⏸ Pause';
+  animHero(true);
+}
+
+/* ── SINGLES ── */
+function toggleSingle(id, title, cover){
+  var audio = document.getElementById('audio-'+id);
+  var ri    = document.getElementById('ri-'+id);
+  var pb    = document.getElementById('pb-'+id);
+  if(currentId === id){
+    if(!audio.paused){ audio.pause(); ri.classList.remove('is-playing'); pb.textContent='▶'; animMW(id,false); }
+    else { audio.play().catch(function(){}); ri.classList.add('is-playing'); pb.textContent='⏸'; animMW(id,true); }
+    return;
+  }
+  launch(audio, id, title, cover);
+  ri.classList.add('is-playing');
+  pb.textContent = '⏸';
+  animMW(id, true);
+}
+
+/* ── COLLECTION TOGGLE ── */
+function toggleCollection(id){
+  document.getElementById('col-'+id).classList.toggle('open');
+}
+
+/* ── TRACK ROWS ── */
+function toggleTrack(id, title, cover){
+  var audio = document.getElementById('audio-'+id);
+  var row   = document.getElementById('tr-'+id);
+  if(currentId === id){
+    if(!audio.paused){ audio.pause(); row.classList.remove('is-playing'); animMW(id,false); }
+    else { audio.play().catch(function(){}); row.classList.add('is-playing'); animMW(id,true); }
+    return;
+  }
+  launch(audio, id, title, cover);
+  row.classList.add('is-playing');
+  animMW(id, true);
+}
+
+/* ── PLAYER BAR CONTROLS ── */
+function togglePlay(){
+  if(!currentAudio) return;
+  var id = currentId;
+  if(!currentAudio.paused){
+    currentAudio.pause();
+    if(id==='featured'){ document.getElementById('ft-featured').classList.remove('is-playing'); document.getElementById('ft-playbtn').textContent='▶ Play Now'; animHero(false); }
+    else if(document.getElementById('ri-'+id)){ document.getElementById('ri-'+id).classList.remove('is-playing'); document.getElementById('pb-'+id).textContent='▶'; animMW(id,false); }
+    else { var r=document.getElementById('tr-'+id); if(r){ r.classList.remove('is-playing'); animMW(id,false); } }
+  } else {
+    currentAudio.play().catch(function(){});
+    if(id==='featured'){ document.getElementById('ft-featured').classList.add('is-playing'); document.getElementById('ft-playbtn').textContent='⏸ Pause'; animHero(true); }
+    else if(document.getElementById('ri-'+id)){ document.getElementById('ri-'+id).classList.add('is-playing'); document.getElementById('pb-'+id).textContent='⏸'; animMW(id,true); }
+    else { var r=document.getElementById('tr-'+id); if(r){ r.classList.add('is-playing'); animMW(id,true); } }
+  }
+}
+
+function skipTrack(dir){
+  var idx = playlist.findIndex(function(p){ return p.id===currentId; });
+  if(idx < 0) return;
+  var next = playlist[(idx + dir + playlist.length) % playlist.length];
+  var audio = document.getElementById(next.audioId);
+  if(!audio) return;
+  if(next.id==='featured') toggleFeatured();
+  else if(document.getElementById('ri-'+next.id)) toggleSingle(next.id, next.title, next.cover);
+  else toggleTrack(next.id, next.title, next.cover);
+}
+
+function closePlayer(){
+  if(currentAudio){ currentAudio.pause(); currentAudio.currentTime=0; }
+  clearAll();
+  currentAudio = null;
+  currentId    = null;
+  document.getElementById('playerBar').classList.remove('active');
+  document.body.style.paddingBottom = '0';
+  document.getElementById('progressFill').style.width = '0%';
+  document.getElementById('timeNow').textContent = '0:00';
+  document.getElementById('timeTotal').textContent = '0:00';
+  document.getElementById('playPauseBtn').textContent = '▶';
+}
+
+function seekTrack(e){
+  if(!currentAudio || !currentAudio.duration) return;
+  var rect = e.currentTarget.getBoundingClientRect();
+  currentAudio.currentTime = ((e.clientX - rect.left) / rect.width) * currentAudio.duration;
+}
+</script>
+</body>
+</html>
